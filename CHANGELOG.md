@@ -1,2 +1,3 @@
 - Update README documentation (2024-1-14 9:00:00)
 - Refactor configuration files (2024-7-4 16:10:00)
+- Optimize script performance (2024-3-15 11:20:00)
