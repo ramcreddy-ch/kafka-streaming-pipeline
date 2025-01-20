@@ -1,29 +1,23 @@
-# Byte-compiled files
-__pycache__/
-*.py[cod]
-*$py.class
-
-# Virtual environments
-venv/
-env/
-.venv/
-
-# IDE
-.idea/
-.vscode/
-*.swp
-
-# Logs
+# Binaries
+*.exe
+*.dll
+*.so
+*.db
 *.log
-logs/
 
-# Docker
-.docker/
+# Dependencies
+node_modules/
+vendor/
+.venv/
+__pycache__/
+*.egg-info/
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
 
 # OS
 .DS_Store
 Thumbs.db
-
-# Environment
-.env
-*.env.local
