@@ -1,123 +1,39 @@
-# Kafka Streaming Pipeline
+# 🎡 Kafka Streaming Pipeline
 
-A real-time data streaming application using Apache Kafka with Python producers, consumers, and stream processing.
+[![Kafka: 3.5](https://img.shields.io/badge/Kafka-3.5-blue.svg)](https://kafka.apache.org/)
+[![Confluent: 7.5](https://img.shields.io/badge/Confluent-7.5-orange.svg)](https://www.confluent.io/)
 
-## Architecture
+> High-throughput real-time telemetry processing engine using Kafka Streams and Schema Registry.
 
+## 🏗️ Architecture
+
+```mermaid
+graph LR
+    P[Python Producers] -->|Avro| K(Kafka Cluster)
+    K -->|Stream| S[Kafka Streams Processor]
+    S -->|Enriched| T(Elasticsearch/InfluxDB)
+    SR[Schema Registry] -.- K
 ```
-┌─────────────┐     ┌─────────────┐     ┌──────────────────┐     ┌─────────────┐
-│   Producer  │────▶│    Kafka    │────▶│ Stream Processor │────▶│   Consumer  │
-│  (Events)   │     │   Broker    │     │   (Transform)    │     │  (Sink)     │
-└─────────────┘     └─────────────┘     └──────────────────┘     └─────────────┘
-```
 
-## Features
+This pipeline demonstrates production-grade stream processing with Avro serialization and schema evolution.
 
-- **Producer**: Generates real-time events (user activity, transactions, IoT data)
-- **Consumer**: Consumes and processes messages from topics
-- **Stream Processor**: Real-time transformations, aggregations, and filtering
-- **Docker Compose**: Full Kafka ecosystem (Kafka, Zookeeper, Schema Registry)
+## 🚀 Development Stack
 
-## Prerequisites
-
-- Docker & Docker Compose
-- Python 3.9+
-- pip
-
-## Quick Start
-
-### 1. Start Kafka Infrastructure
+Use the `Makefile` to orchestra the local Confluent environment:
 
 ```bash
-docker-compose up -d
+make up
+make topic
+make ps
 ```
 
-This starts:
-- Zookeeper (port 2181)
-- Kafka Broker (port 9092)
-- Schema Registry (port 8081)
-- Kafka UI (port 8080)
+Access the **Confluent Control Center** at `http://localhost:9021` to monitor streams visually.
 
-### 2. Install Dependencies
+## 🛠️ Components
 
-```bash
-# Producer
-cd producer && pip install -r requirements.txt
+- **Consumer/**: Intelligent consumer group logic with rebalance listeners.
+- **Producer/**: Async producers with retry policies and dead-letter queue (DLQ) support.
+- **Stream-Processor/**: Complex transformations including windowed aggregations.
 
-# Consumer
-cd ../consumer && pip install -r requirements.txt
-
-# Stream Processor
-cd ../stream-processor && pip install -r requirements.txt
-```
-
-### 3. Run the Pipeline
-
-```bash
-# Terminal 1: Start Consumer
-cd consumer && python consumer.py
-
-# Terminal 2: Start Stream Processor
-cd stream-processor && python stream_app.py
-
-# Terminal 3: Start Producer
-cd producer && python producer.py
-```
-
-## Project Structure
-
-```
-kafka-streaming-pipeline/
-├── docker-compose.yml          # Kafka infrastructure
-├── producer/
-│   ├── producer.py             # Event producer
-│   ├── event_generator.py      # Sample data generator
-│   └── requirements.txt
-├── consumer/
-│   ├── consumer.py             # Event consumer
-│   └── requirements.txt
-├── stream-processor/
-│   ├── stream_app.py           # Stream processing logic
-│   └── requirements.txt
-├── config/
-│   └── kafka-config.properties
-└── scripts/
-    ├── create-topics.sh
-    └── cleanup.sh
-```
-
-## Configuration
-
-Edit `config/kafka-config.properties`:
-
-```properties
-bootstrap.servers=localhost:9092
-schema.registry.url=http://localhost:8081
-```
-
-## Topics
-
-| Topic | Description |
-|-------|-------------|
-| `raw-events` | Raw incoming events from producer |
-| `processed-events` | Transformed events from stream processor |
-| `alerts` | Filtered high-priority events |
-
-## Monitoring
-
-Access Kafka UI at: http://localhost:8080
-
-## Use Cases
-
-1. **Real-time Analytics**: Process clickstream data
-2. **IoT Pipelines**: Sensor data ingestion and processing
-3. **Fraud Detection**: Real-time transaction analysis
-4. **Log Aggregation**: Centralized log processing
-
-## Author
-
-Ramchandra Chintala
-
-## License
-
-MIT License
+---
+maintained by **Ramchandra Chintala**
